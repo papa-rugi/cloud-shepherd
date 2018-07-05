@@ -1,0 +1,26 @@
+{
+  "name": "cloud-herder",
+  "version": "0.1.0",
+  "description": "An NPM module that abstracts away the complexities of cloud storage services (Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interface between multiple clouds with a unified interface. Also enables you to quickly perform data migrations between storage providers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paparugi/cloud-herder.git"
+  },
+  "keywords": [
+    "multicloud"
+  ],
+  "author": "“Alexander <alexanderlcodes@gmail.com> (https://github.com/paparugi)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paparugi/cloud-herder/issues"
+  },
+  "homepage": "https://github.com/paparugi/cloud-herder#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
