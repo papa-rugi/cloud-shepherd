@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paparugi/cloud-herder.git"
+    "url": "git+https://github.com/papa-rugi/cloud-herder.git"
   },
   "keywords": [
     "multicloud"
   ],
-  "author": "“Alexander <alexanderlcodes@gmail.com> (https://github.com/paparugi)",
+  "author": "“Alexander <alexanderlcodes@gmail.com> (https://github.com/papa-rugi)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/paparugi/cloud-herder/issues"
+    "url": "https://github.com/papa-rugi/cloud-herder/issues"
   },
-  "homepage": "https://github.com/paparugi/cloud-herder#readme",
+  "homepage": "https://github.com/papa-rugi/cloud-herder#readme",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
