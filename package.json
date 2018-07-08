@@ -2,7 +2,7 @@
   "name": "cloud-herder",
   "version": "0.1.0",
   "description": "An NPM module that abstracts away the complexities of cloud storage services (Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interface between multiple clouds with a unified interface. Also enables you to quickly perform data migrations between storage providers.",
-  "main": "index.js",
+  "main": "./plib/main.js",
   "scripts": {
     "test": "mocha --reporter spec"
   },
@@ -22,5 +22,8 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "pkgcloud": "^1.5.0"
   }
 }
