@@ -7,8 +7,8 @@ interface. Also enables you to quickly perform data migrations between storage p
 
 ## Installation
 
-  (API is not production ready)
-  `npm install @papa_rugi/cloud-herder`
+  (API is still being fleshed out.)
+  `npm install cloud-herder` for installation.
 
 
 ## Usage
@@ -22,4 +22,4 @@ interface. Also enables you to quickly perform data migrations between storage p
 
 ## Contributing
 
-TBD
+Roadmap still being worked out. Hop onto this discord server if you want to reach me: https://discord.gg/PPpWSdb
