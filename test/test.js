@@ -14,54 +14,41 @@ const path = require('path');
 const util = require('../lib/utils.js');
 
 
-
+// Fetch items from root directory
 source.fetchItems('/')
-    .then( containers => {
-        containers.forEach(function (container) {
-            console.log(container.toJSON());
+    .then( files => {
+        files.forEach(function (files) {
+            console.log(files.toJSON());
         });
     })
     .catch( err => {
         console.log(err);
     });
 
-source.fetchItems('/testingdirs/test')
+//Fetch items from a root folder
+source.fetchItems('/testingdirs/')
     .then( files => {
-        // containers.forEach(function (file) {
-        //     console.log(file.toJSON());
-        // });
+        files.forEach(function (file) {
+            console.log(file.toJSON().name);
+        });
+    })
+    .catch( err => {
+        console.log(err);
+    });
 
-        console.log( files);
+//Fetch items from a root folder and a sub directory
+source.fetchItems('/testingdirs/Directory/')
+    .then( files => {
+         files.forEach(function (file) {
+             console.log(file.toJSON().name);
+         });
     })
     .catch( err => {
         console.log(err);
     });
 
 
-console.log(path.basename("/"));
 
-console.log(path.basename("/testingdirs/"));
-
-
-console.log(path.isAbsolute("/testingdirs/"));
-
-console.log(path.isAbsolute("testingdirs"));
-
-console.log(path.isAbsolute("/testingdirs"));
-
-
-
-
-console.log(path.dirname("/testingdirs/s3Test"));
-
-
-console.log(path.normalize("/testingdirs/s3Test/test/.."));
-
-console.log(path.parse('/home/user/dir/file.txt'));
-
-console.log(path.parse('/'));
-
-console.log(path.parse('/').dir);
 
 
 
