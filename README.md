@@ -18,7 +18,10 @@ Promise and stream based!
 ## Usage
     
     //Example using Amazon s3 Api 
-    const source = cloudherder.cloudFactory.issue('s3', credentials);
+    
+    const CloudHerder = require('cloud-herder');
+
+    const source = CloudHerder.cloudFactory.issue('s3', credentials);
 
     
     // List items from root context

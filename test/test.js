@@ -1,11 +1,11 @@
 
 
 
-const cloudherder = require('../lib/main.js');
+const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = cloudherder.cloudFactory.issue('s3', credentials);
+const source = shepherd.cloudFactory.issue('s3', credentials);
 
 
 
