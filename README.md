@@ -16,12 +16,12 @@ Currently supported clouds:
 
 *s3: in-progress*
 
-Raskapce: planned
-Azure: planned
-Openstack: planned
-Dropbox: planned
-Onedrive: planned
-gDrive: planned
+| Raskapce: planned |
+| Azure: planned |
+| Openstack: planned |
+| Dropbox: planned |
+| Onedrive: planned |
+| gDrive: planned |
 
 
 ## Installation
