@@ -1,4 +1,4 @@
-cloud-herder :ox: :water_buffalo: :cow2: :dromedary_camel: :ram: 
+cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
 =========
 
 An NPM module that abstracts away the complexities of cloud storage services
