@@ -66,7 +66,7 @@ Promise and stream based!
             console.log(err);
         });
     
-    //Make create a sub-directory tree from a supplied path context
+    //Create a sub-directory tree from a supplied path context
     source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
         .then(data =>{
             console.log(data);
