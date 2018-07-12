@@ -2,13 +2,13 @@ cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram:
 =========
 
 An NPM module that abstracts away the complexities of cloud storage services
-(Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interact with multiple clouds using a unified
-POISIX interface. 
+(Object Storage (AWS s3) as well as File Storage(Dropbox)) to easily interact with multiple clouds through one api
+using a simple promise based, POISIX interface. 
 
 Amaze your friends and family as you perform operations on multiple cloud clients at once (in parallel)
 without having to dig up documentation , build custom wrappers, or spend time thinking about blobs and keys. 
 
-Promise and stream based!
+(If by chance there are any stream experts out there, message me. Would love some insight!)
 
 ## Installation
 
