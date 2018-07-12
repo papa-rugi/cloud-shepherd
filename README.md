@@ -14,7 +14,8 @@ without having to dig up documentation , build custom wrappers, or spend time th
 
 Currently supported clouds:
 
-s3: in-progress
+*s3: in-progress*
+
 Raskapce: planned
 Azure: planned
 Openstack: planned
