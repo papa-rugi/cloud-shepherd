@@ -3,17 +3,78 @@
 
 An NPM module that abstracts away the complexities of cloud storage services
 (Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interface between multiple clouds with a unified
-interface. Also enables you to quickly perform data migrations between storage providers.
+POISIX interface.
+
+Promise and stream based!
 
 ## Installation
 
-  (API is still being fleshed out.)
-  `npm install cloud-herder` for installation.
+  `npm install cloud-herder`
 
 
 ## Usage
+    
+    //Example using Amazon s3 Api 
+    const source = cloudherder.cloudFactory.issue('s3', credentials);
 
-    TBD
+    
+    // List items from root context
+    source.ls('/')
+        .then( files => {
+            files.forEach(function (files) {
+                console.log(files.toJSON());
+            });
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    
+    // Fetch items from a root folder or container context
+    source.ls('/testingdirs/')
+        .then( files => {
+            files.forEach(function (file) {
+                console.log(file.toJSON().name);
+            });
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    
+    //Fetch items from a sub directory
+    source.ls('/testingdirs/Directory/')
+        .then( files => {
+             files.forEach(function (file) {
+                 console.log(file.toJSON().name);
+             });
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    
+    //Fetch item from path
+    source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
+        .then( file => {
+            console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
+        });
+        
+    //Make a directory or container in root context
+    source.mkdir('/showcasethisapiwhydontyou/')
+        .then( data => {
+            console.log(data);
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    
+    //Make create a sub-directory tree from a supplied path context
+    source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
+        .then(data =>{
+            console.log(data);
+        })
+        .catch(err =>{
+            console.log(err);
+        });
+
 
 
 ## Tests

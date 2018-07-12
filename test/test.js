@@ -12,10 +12,12 @@ const source = cloudherder.cloudFactory.issue('s3', credentials);
 /****TESTING***/
 const path = require('path');
 const util = require('../lib/utils.js');
+const stream = require('stream');
+const Readable = require('readable-stream').Readable;
 
 
 // Fetch items from root directory
-source.fetchItems('/')
+source.ls('/')
     .then( files => {
         files.forEach(function (files) {
             console.log(files.toJSON());
@@ -25,8 +27,8 @@ source.fetchItems('/')
         console.log(err);
     });
 
-//Fetch items from a root folder
-source.fetchItems('/testingdirs/')
+// //Fetch items from a root folder
+source.ls('/testingdirs/')
     .then( files => {
         files.forEach(function (file) {
             console.log(file.toJSON().name);
@@ -37,7 +39,7 @@ source.fetchItems('/testingdirs/')
     });
 
 //Fetch items from a root folder and a sub directory
-source.fetchItems('/testingdirs/Directory/')
+source.ls('/testingdirs/Directory/')
     .then( files => {
          files.forEach(function (file) {
              console.log(file.toJSON().name);
@@ -48,8 +50,57 @@ source.fetchItems('/testingdirs/Directory/')
     });
 
 
+source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
+    .then( file => {
+        console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
+    });
 
 
+// source.mkdir('/')
+//     .then( data => {
+//         console.log(data);
+//     })
+//     .catch( err =>{
+//         console.log(err);
+//     });
+
+source.mkdir('/showcasethisapiwhydontyou/')
+    .then( data => {
+        console.log(data);
+    })
+    .catch( err => {
+        console.log(err);
+    });
+
+source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
+    .then(data =>{
+        console.log(data);
+    })
+    .catch(err =>{
+        console.log(err);
+    });
+
+// var writeStream = source.s3.upload({
+//     container: 'testingdirs',
+//     remote: 'DIRTEST2/'
+// });
+//
+// const readStream = Readable({objectMode: true});
+// readStream._read = () => {};
+// readStream.push('goats');
+// readStream.push(null);
+// readStream.pipe(writeStream);
+//
+//
+// console.log(writeStream);
+
+
+
+
+// source.mkdir('/bucketHerdTest/dirCreationTest')
+//     .then( data => {
+//         console.log(data);
+//     });
 
 
 //Herd should always start with a directory context... maybe hold current directory
