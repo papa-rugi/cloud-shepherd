@@ -1,5 +1,7 @@
-(*STILL IN DEVELOPMENT*)cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
+cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
 =========
+
+(*STILL IN DEVELOPMENT*)
 
 An NPM module that abstracts away the complexities of cloud storage services
 (Object Storage (AWS s3) as well as File Storage(Dropbox)) to easily interact with multiple clouds through one api
