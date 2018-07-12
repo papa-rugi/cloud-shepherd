@@ -16,7 +16,7 @@ Currently supported clouds:
 
 *s3: in-progress*
 
-| Raskapce: planned |
+| Raskspace: planned |
 | Azure: planned |
 | Openstack: planned |
 | Dropbox: planned |
