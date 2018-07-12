@@ -1,4 +1,4 @@
-cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
+(*STILL IN DEVELOPMENT*)cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
 =========
 
 An NPM module that abstracts away the complexities of cloud storage services
@@ -9,6 +9,17 @@ Amaze your friends and family as you perform operations on multiple cloud client
 without having to dig up documentation , build custom wrappers, or spend time thinking about blobs and keys. 
 
 (If by chance there are any stream experts out there, message me. Would love some insight!)
+
+Currently supported clouds:
+
+s3: in-progress
+Raskapce: planned
+Azure: planned
+Openstack: planned
+Dropbox: planned
+Onedrive: planned
+gDrive: planned
+
 
 ## Installation
 
