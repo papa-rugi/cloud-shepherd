@@ -1,5 +1,5 @@
 {
-  "name": "cloud-herder",
+  "name": "cloud-shepherd",
   "version": "0.0.3",
   "description": "An NPM module that abstracts away the complexities of cloud storage services (Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interface between multiple clouds with a unified interface. Also enables you to quickly perform data migrations between storage providers.",
   "main": "./plib/main.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/papa-rugi/cloud-herder.git"
+    "url": "git+https://github.com/papa-rugi/cloud-shepherd.git"
   },
   "keywords": [
     "multicloud"
@@ -16,9 +16,9 @@
   "author": "“Alexander <alexanderlcodes@gmail.com> (https://github.com/papa-rugi)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/papa-rugi/cloud-herder/issues"
+    "url": "https://github.com/papa-rugi/cloud-shepherd/issues"
   },
-  "homepage": "https://github.com/papa-rugi/cloud-herder#readme",
+  "homepage": "https://github.com/papa-rugi/cloud-shepherd#readme",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
