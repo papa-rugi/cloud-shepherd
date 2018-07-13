@@ -26,7 +26,7 @@ source.ls('/')
     .catch( err => {
         console.log(err);
     });
-
+r
 // //Fetch items from a root folder
 source.ls('/testingdirs/')
     .then( files => {
