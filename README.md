@@ -1,4 +1,4 @@
-cloud-herder :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
+cloud-shepherd :ox: :dromedary_camel: :cow2: :water_buffalo: :ram: 
 =========
 
 (*STILL IN DEVELOPMENT*)
@@ -26,16 +26,16 @@ Currently supported clouds:
 
 ## Installation
 
-  `npm install cloud-herder`
+  `npm install cloud-shepherd`
 
 
 ## Usage
     
     //Example using Amazon s3 Api 
     
-    const CloudHerder = require('cloud-herder');
+    const shepherd = require('cloud-shepherd');
 
-    const source = CloudHerder.cloudFactory.issue('s3', credentials);
+    const source = shepherd.cloudFactory.issue('s3', credentials);
 
     
     // List items from root context
