@@ -17,43 +17,43 @@ const Readable = require('readable-stream').Readable;
 
 
 // Fetch items from root directory
-source.ls('/')
-    .then( files => {
-        files.forEach(function (files) {
-            console.log(files.toJSON());
-        });
-    })
-    .catch( err => {
-        console.log(err);
-    });
-
-// //Fetch items from a root folder
-source.ls('/testingdirs/')
-    .then( files => {
-        files.forEach(function (file) {
-            console.log(file.toJSON().name);
-        });
-    })
-    .catch( err => {
-        console.log(err);
-    });
+// source.ls('/')
+//     .then( files => {
+//         files.forEach(function (files) {
+//             console.log(files.toJSON());
+//         });
+//     })
+//     .catch( err => {
+//         console.log(err);
+//     });
+//
+// // //Fetch items from a root folder
+// source.ls('/testingdirs/')
+//     .then( files => {
+//         files.forEach(function (file) {
+//             console.log(file.toJSON().name);
+//         });
+//     })
+//     .catch( err => {
+//         console.log(err);
+//     });
 
 //Fetch items from a root folder and a sub directory
-source.ls('/testingdirs/Directory/')
-    .then( files => {
-         files.forEach(function (file) {
-             console.log(file.toJSON().name);
-         });
-    })
-    .catch( err => {
-        console.log(err);
-    });
-
-
-source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
-    .then( file => {
-        console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
-    });
+// source.ls('/testingdirs/Directory/')
+//     .then( files => {
+//          files.forEach(function (file) {
+//              console.log(file.toJSON().name);
+//          });
+//     })
+//     .catch( err => {
+//         console.log(err);
+//     });
+//
+//
+// source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
+//     .then( file => {
+//         console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
+//     });
 
 
 // source.mkdir('/')
@@ -64,100 +64,60 @@ source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
 //         console.log(err);
 //     });
 
-source.mkdir('/showcasethisapiwhydontyou/')
-    .then( data => {
-        console.log(data);
-    })
-    .catch( err => {
-        console.log(err);
-    });
-
-source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
-    .then(data =>{
-        console.log(data);
-    })
-    .catch(err =>{
-        console.log(err);
-    });
+// source.mkdir('/showcasethisapiwhydontyou/')
+//     .then( data => {
+//         console.log(data);
+//     })
+//     .catch( err => {
+//         console.log(err);
+//     });
+//
+// source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
+//     .then(data =>{
+//         console.log(data);
+//     })
+//     .catch(err =>{
+//         console.log(err);
+//     });
 
 // var writeStream = source.s3.upload({
 //     container: 'testingdirs',
 //     remote: 'DIRTEST2/'
 // });
 //
-// const readStream = Readable({objectMode: true});
-// readStream._read = () => {};
-// readStream.push('goats');
-// readStream.push(null);
+
 // readStream.pipe(writeStream);
 //
 //
 // console.log(writeStream);
 
+const readStream = Readable({objectMode: true});
+readStream._read = () => {};
+readStream.push('goats');
+readStream.push('cats');
+readStream.push('dolphins');
 
 
+//Write to a remote file with a supplied read stream
+source.uploadFile( '/testingdirs/fileToWrite5.txt', readStream)
+    .then(data => {
+        console.log('Successfully placed file');
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
-// source.mkdir('/bucketHerdTest/dirCreationTest')
-//     .then( data => {
-//         console.log(data);
-//     });
+readStream.push('dogs');
+readStream.push('yaks');
+readStream.push('cattle');
+readStream.push('whales');
+readStream.push('dolphins');
+readStream.push('whales');
+readStream.push('ferrets');
+readStream.push('pigs');
+readStream.push('whales');
+readStream.push(null);
 
-
-//Herd should always start with a directory context... maybe hold current directory
-//context in object?
-
-
-//Fetch item from a supplied path
-// source.fetchItem('/testingdirs/doesFileExist', params)
-//     .then(data => {
-//         console.log('Return file if it exists, else  \n', data);
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
-//
-// //List items from root context
-// source.fetchItems('/', params)
-//     .then(data => {
-//        console.log('Get list dirs from root context \n', data);
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
-//
-// //List items from dir context
-// source.fetchItems('/testingdirs/', params)
-//     .then(data => {
-//         console.log('List files from testingdirs dir context \n', data);
-//     })
-//     .catch((err) => {
-//     // Handle any error that occurred in any of the previous
-//     // promises in the chain.
-//     });
-//
-//
-//
-// //Put item with name and data at location
-// source.placeFile('/testingDirs/', 'itemToPut', body)
-//     .then(data => {
-//         console.log('Successfully placed file');
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
-//
-// //Make directory at dir contxt
-// source.placeDir('/testingdirs/', 'makeTest')
-//     .then(data => {
-//         console.log('Successfully placed dir');
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
 //
 // //Move file from source context to dest context
 // source.moveFile('/testingDirs/moveTest', '/moveTest/moveTest')
