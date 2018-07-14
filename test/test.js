@@ -13,7 +13,8 @@ const source = shepherd.cloudFactory.issue('s3', credentials);
 const path = require('path');
 const util = require('../lib/utils.js');
 const stream = require('stream');
-const Readable = require('readable-stream').Readable;
+const Readable = require('stream').Readable;
+const Writable = require('stream').Readable;
 
 
 // Fetch items from root directory
@@ -91,15 +92,28 @@ const Readable = require('readable-stream').Readable;
 //
 // console.log(writeStream);
 
-const readStream = Readable({objectMode: true});
-readStream._read = () => {};
-readStream.push('goats');
-readStream.push('cats');
-readStream.push('dolphins');
+// const readStream = Readable({objectMode: true});
+// readStream._read = () => {};
+// readStream.push('cats');
+//
+// //Write to a remote file with a supplied read stream
+// source.uploadFile( '/testingdirs/fileToWrite9.txt', readStream)
+//     .then(data => {
+//         console.log('Successfully placed file');
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
+//
+// readStream.push('dogs');
+// readStream.push(null);
 
 
-//Write to a remote file with a supplied read stream
-source.uploadFile( '/testingdirs/fileToWrite5.txt', readStream)
+
+
+
+//Pass in a write stream, file contents will be piped to that write stream
+source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
     .then(data => {
         console.log('Successfully placed file');
     })
@@ -107,16 +121,9 @@ source.uploadFile( '/testingdirs/fileToWrite5.txt', readStream)
         console.log(err);
     });
 
-readStream.push('dogs');
-readStream.push('yaks');
-readStream.push('cattle');
-readStream.push('whales');
-readStream.push('dolphins');
-readStream.push('whales');
-readStream.push('ferrets');
-readStream.push('pigs');
-readStream.push('whales');
-readStream.push(null);
+
+
+
 
 //
 // //Move file from source context to dest context

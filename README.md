@@ -94,8 +94,32 @@ Currently supported clouds:
         .catch(err =>{
             console.log(err);
         });
+    
+    //Upload any file by simply supplying a Readable object and passing
+    //it as a parameter. Using streams and promises, this can be done async.
+    const readStream = Readable({objectMode: true});
+    readStream._read = () => {};
+    readStream.push('cats');
+    
+    source.uploadFile( '/testingdirs/fileToWrite.txt', readStream)
+        .then(data => {
+            console.log('Successfully placed file');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    
+    readStream.push('dogs');
+    readStream.push(null);
 
-
+    //Pass in a write stream, file contents will be piped to that write stream
+    source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
+        .then(data => {
+            console.log('Successfully placed file');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
 ## Tests
 
