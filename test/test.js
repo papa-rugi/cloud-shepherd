@@ -112,14 +112,36 @@ const Writable = require('stream').Readable;
 
 
 
-//Pass in a write stream, file contents will be piped to that write stream
-source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
-    .then(data => {
-        console.log('Successfully placed file');
+// //Pass in a write stream, file contents will be piped to that write stream
+// source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
+//     .then(data => {
+//         console.log('Successfully placed file');
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
+
+
+//****DANGER***
+
+//Remove item with name from context
+source.destroyFile('/testingdirs/fileToWrite3.txt')
+    .then((data) => {
+        console.log('Successfully destroyed file:' + data);
     })
-    .catch(err => {
+    .catch((err) => {
         console.log(err);
     });
+
+// //Remove a directory and its items
+// source.destroyDir('/testingDirs', 'itemToRemove')
+//     .then(data => {
+//         console.log('Successfully destroyed dir and all of its contents');
+//     })
+//     .catch((err) => {
+//         // Handle any error that occurred in any of the previous
+//         // promises in the chain.
+//     });
 
 
 
@@ -166,27 +188,7 @@ source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
 //         // promises in the chain.
 //     });
 //
-// //****DANGER***
-//
-// //Remove item with name from context
-// source.destroyFile('/testingDirs/', 'itemToRemove')
-//     .then(data => {
-//         console.log('Successfully destroyed file');
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
-//
-// //Remove a directory and its items
-// source.destroyDir('/testingDirs', 'itemToRemove')
-//     .then(data => {
-//         console.log('Successfully destroyed dir and all of its contents');
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
+
 
 
 

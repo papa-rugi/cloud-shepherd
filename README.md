@@ -120,6 +120,16 @@ Currently supported clouds:
         .catch(err => {
             console.log(err);
         });
+        
+        
+    //Remove a file by passing a file path. File will be destroyed or will throw an error.
+    source.destroyFile('/testingdirs/fileToWrite3.txt')
+        .then((data) => {
+            console.log('Successfully destroyed file:' + data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 
 ## Tests
 
