@@ -34,10 +34,14 @@ Currently supported clouds:
     //Example using Amazon s3 Api 
     
     const shepherd = require('cloud-shepherd');
+    
+    const credentials = {
+        secretAccessKey : 'yourSecret',
+        accessKey : 'yourAccessKey'
+    };
 
     const source = shepherd.cloudFactory.issue('s3', credentials);
 
-    
     // List items from root context
     source.ls('/')
         .then( files => {
@@ -97,7 +101,9 @@ Currently supported clouds:
     
     //Upload any file by simply supplying a Readable object and passing
     //it as a parameter. Using streams and promises, this can be done async.
+    const Readable = require('stream').Readable;
     const readStream = Readable({objectMode: true});
+    
     readStream._read = () => {};
     readStream.push('cats');
     
@@ -126,6 +132,54 @@ Currently supported clouds:
     source.destroyFile('/testingdirs/fileToWrite3.txt')
         .then((data) => {
             console.log('Successfully destroyed file:' + data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        
+        
+    //Remove all items from a dir, but not dir itself.
+    source.emptyDir('/containertodelete/dirtodelete/')
+        .then(data => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    //Destroy items in root level directory(container in object storage) but not rootDir itself.
+    source.emptyRootDir('/containertodelete/')
+        .then(data => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    //Remove a directory and its items.
+    source.destroyDir('/containertodelete/dirtodelete/subsubdirtodelete/')
+        .then(data => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    //Remove a root level directory(Container in object storage) and its items.
+    source.destroyRootDir('/containertodelete/')
+        .then(data => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    
+    // DANGER: Unsafe delete function. Will delete items at whatever path you provide it. Primary use is for internal
+    // functions... one wrong typo and you could mistakenly dilete your entire bucket. Use explicit delete functions
+    // save yourself the trouble.
+    source.unlink('/containertodelete/dirtodelete/subsubdirtodelete/')
+        .then(data => {
+            console.log(data);
         })
         .catch((err) => {
             console.log(err);

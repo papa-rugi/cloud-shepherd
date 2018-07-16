@@ -125,29 +125,63 @@ const Writable = require('stream').Readable;
 //****DANGER***
 
 //Remove item with name from context
-source.destroyFile('/testingdirs/fileToWrite3.txt')
-    .then((data) => {
-        console.log('Successfully destroyed file:' + data);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-// //Remove a directory and its items
-// source.destroyDir('/testingDirs', 'itemToRemove')
-//     .then(data => {
-//         console.log('Successfully destroyed dir and all of its contents');
+// source.destroyFile('/testingdirs/fileToWrite3.txt')
+//     .then((data) => {
+//         console.log('Successfully destroyed file:' + data);
 //     })
 //     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
+//         console.log(err);
+//     });
+//
+// //Remove all items from a dir, but not dir itself.
+// source.emptyDir('/containertodelete/dirtodelete/')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+// //Destroy items in root level directory(container in object storage) but not rootDir itself.
+// source.emptyRootDir('/containertodelete/')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+//
+// //Remove a directory and its items.
+// source.destroyDir('/containertodelete/dirtodelete/subsubdirtodelete/')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+//
+// //Remove a root level directory(Container in object storage) and its items.
+// source.destroyRootDir('/containertodelete/')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+//
+//
+// // DANGER: Unsafe delete function. Will delete items at whatever path you provide it. Primary use is for internal
+// // functions... one wrong typo and you could mistakenly dilete your entire bucket. Use explicit delete functions
+// // save yourself the trouble.
+// source.unlink('/containertodelete/dirtodelete/subsubdirtodelete/')
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
 //     });
 
 
 
-
-
-//
 // //Move file from source context to dest context
 // source.moveFile('/testingDirs/moveTest', '/moveTest/moveTest')
 //     .then(data => {
@@ -192,24 +226,6 @@ source.destroyFile('/testingdirs/fileToWrite3.txt')
 
 
 
-
-//Get root
-// source.fetchObjects('/', 10, '')
-//     .then(data =>{
-//        console.log('Get list of buckets/root', '\n', data);
-//     });
-//
-// //Get dir
-// source.fetchObjects('/testingdirs/', 10, '')
-//     .then(data =>{
-//         console.log('Get list of objects in bucket testingdirs', '\n', data);
-//     });
-//
-// //PutObject
-// source.putObject('/testingdirs/s3Test','hello');
-//
-// //MakeDirectory
-// source.makeDirectory('/testingdirs/directoryTest/');
 
 
 //Migrate File
