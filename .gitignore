@@ -63,3 +63,5 @@ typings/
 
 credentials.js
 .idea/*
+
+.DS_Store

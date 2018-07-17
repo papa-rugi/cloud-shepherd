@@ -3,7 +3,7 @@ cloud-shepherd :ox: :dromedary_camel: :cow2: :water_buffalo: :ram:
 
 (*STILL IN DEVELOPMENT*)
 
-An NPM module that abstracts away the complexities of cloud storage services
+A NPM module that abstracts away the complexities of cloud storage services
 (Object Storage (AWS s3) as well as File Storage(Dropbox)) to easily interact with multiple clouds through one api
 using a simple promise based, POISIX interface. 
 
@@ -175,11 +175,48 @@ Currently supported clouds:
     
     
     // DANGER: Unsafe delete function. Will delete items at whatever path you provide it. Primary use is for internal
-    // functions... one wrong typo and you could mistakenly dilete your entire bucket. Use explicit delete functions
+    // functions... one wrong typo and you could mistakenly delete your entire bucket. Use explicit delete functions
     // save yourself the trouble.
     source.unlink('/containertodelete/dirtodelete/subsubdirtodelete/')
         .then(data => {
             console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        
+    //Returns true if root dir exists, false if not
+    source.rootDirExists('/containertodelete/')
+        .then(doesFileExist => {
+            console.log('Does root dir exist? : ', doesFileExist );
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    //Returns true if dir exists, false if not
+    source.dirExists('/containertodelete/dir/subdir/')
+        .then(doesFileExist => {
+            console.log('Does dir exist? : ', doesFileExist );
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    
+    //Returns true if file exists, false if not
+    source.fileExists('/gigofbuffalos/buffalo.jpg')
+        .then(doesFileExist => {
+            console.log('Does file exist? : ', doesFileExist );
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        
+    //Move file from source context to dest context
+    source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+        .then(data => {
+            console.log(data);
+            console.log('Successfully copied file');
         })
         .catch((err) => {
             console.log(err);

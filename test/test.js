@@ -179,10 +179,39 @@ const Readable = require('stream').Readable;
 //         console.log(err);
 //     });
 
+
+// source.rootDirExists('/containertodelete/')
+//     .then(doesFileExist => {
+//         console.log('Does root dir exist? : ', doesFileExist );
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+//
+// source.dirExists('/containertodelete/dir/subdir/')
+//     .then(doesFileExist => {
+//         console.log('Does dir exist? : ', doesFileExist );
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+//
+// source.fileExists('/gigofbuffalos/buffalo.jpg')
+//     .then(doesFileExist => {
+//         console.log('Does file exist? : ', doesFileExist );
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+
+
+
+
+
 //Move file from source context to dest context
-source.copyFile('/gigofbuffalos/buffalo.jpg', '/moveTest/moveTest')
+source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
     .then(data => {
-        console.log(data.name);
+        console.log(data);
         console.log('Successfully copied file');
     })
     .catch((err) => {
