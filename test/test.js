@@ -5,7 +5,7 @@ const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = shepherd.cloudFactory.issue('s3', credentials);
+const source = shepherd.herd('s3', credentials);
 
 
 
@@ -14,7 +14,6 @@ const path = require('path');
 const util = require('../lib/utils.js');
 const stream = require('stream');
 const Readable = require('stream').Readable;
-const Writable = require('stream').Readable;
 
 
 // Fetch items from root directory
@@ -180,7 +179,15 @@ const Writable = require('stream').Readable;
 //         console.log(err);
 //     });
 
-
+//Move file from source context to dest context
+source.copyFile('/gigofbuffalos/buffalo.jpg', '/moveTest/moveTest')
+    .then(data => {
+        console.log(data.name);
+        console.log('Successfully copied file');
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 // //Move file from source context to dest context
 // source.moveFile('/testingDirs/moveTest', '/moveTest/moveTest')
@@ -202,15 +209,7 @@ const Writable = require('stream').Readable;
 //         // promises in the chain.
 //     });
 //
-// //Move file from source context to dest context
-// source.copyFile('/testingDirs/moveTest', '/moveTest/moveTest')
-//     .then(data => {
-//         console.log('Successfully copied file');
-//     })
-//     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
-//     });
+
 //
 // //Move dir from source context to dest context
 // source.copyDir('/testingDirs/makeTest/', '/moveTest/makeTest/')
