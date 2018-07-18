@@ -45,9 +45,7 @@ Currently supported clouds:
     // List items from root context
     source.ls('/')
         .then( files => {
-            files.forEach(function (files) {
-                console.log(files.toJSON());
-            });
+            console.log(files);
         })
         .catch( err => {
             console.log(err);
@@ -56,9 +54,7 @@ Currently supported clouds:
     // Fetch items from a root folder or container context
     source.ls('/testingdirs/')
         .then( files => {
-            files.forEach(function (file) {
-                console.log(file.toJSON().name);
-            });
+            console.log(files);
         })
         .catch( err => {
             console.log(err);
@@ -67,16 +63,15 @@ Currently supported clouds:
     //Fetch items from a sub directory
     source.ls('/testingdirs/Directory/')
         .then( files => {
-             files.forEach(function (file) {
-                 console.log(file.toJSON().name);
-             });
+             console.log(files);
         })
         .catch( err => {
             console.log(err);
         });
     
-    //Fetch item from path
-    source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
+    //The stat command is exactly like ls except that it returns
+    //Deatailed information on the dir/file targeted.
+    source.stat('/testingdirs/Directory/2l0kmekrp1dy.jpg')
         .then( file => {
             console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
         });

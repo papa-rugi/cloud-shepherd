@@ -96,7 +96,7 @@ const Readable = require('stream').Readable;
 // readStream.push('cats');
 //
 // //Write to a remote file with a supplied read stream
-// source.uploadFile( '/testingdirs/fileToWrite9.txt', readStream)
+// source.uploadFile( '/cloudshepherdtesting/fileToWrite.txt', readStream)
 //     .then(data => {
 //         console.log('Successfully placed file');
 //     })
@@ -208,15 +208,51 @@ const Readable = require('stream').Readable;
 
 
 
-//Move file from source context to dest context
-source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+// //Move file from source context to dest context
+// source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+//     .then(data => {
+//         console.log(data);
+//         console.log('Successfully copied file');
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
+
+// source.ls('/cloudshepherdtesting/copytestdest/')
+//     .then(data =>{
+//
+//     })
+//     .catch(err =>{
+//         console.log(err);
+//     });
+
+// source.ls('/')
+//     .then( data =>{
+//         console.log(data);
+// });
+// source.ls('/cloudshepherdtesting/copytotest/')
+//     .then( data =>{
+//         console.log(data);
+//     });
+//
+// source.stat('/cloudshepherdtesting/copytotest/')
+//     .then( data =>{
+//         console.log(data)
+//     });
+
+
+
+
+// Move file from source context to dest context
+source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/copytestdest/')
     .then(data => {
-        console.log(data);
-        console.log('Successfully copied file');
+        console.log('Successfully copied dir');
     })
     .catch((err) => {
         console.log(err);
     });
+
+
 
 // //Move file from source context to dest context
 // source.moveFile('/testingDirs/moveTest', '/moveTest/moveTest')
