@@ -5,8 +5,8 @@ const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = shepherd.herd('s3', credentials);
-
+const source = shepherd.herd('s3', credentials.sourceCredentials);
+const destination = shepherd.herd('s3', credentials.destinationCredentials);
 
 
 /****TESTING***/
@@ -244,26 +244,23 @@ const Readable = require('stream').Readable;
 
 
 // Move file from source context to dest context
-source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/copytestdest/')
-    .then(data => {
-        console.log('Successfully copied dir');
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-
-
-// //Move file from source context to dest context
-// source.moveFile('/testingDirs/moveTest', '/moveTest/moveTest')
+// source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/testagain2/')
 //     .then(data => {
-//         console.log('Successfully moved file');
+//         console.log(data);
 //     })
 //     .catch((err) => {
-//         // Handle any error that occurred in any of the previous
-//         // promises in the chain.
+//         console.log(err);
 //     });
-//
+
+
+
+//Move file from source context to dest context
+// source.moveDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/movetest/')
+//     .then(data => {
+//         console.log('Successfully moved file');
+//     });
+
+
 // //Move dir from source context to dest context
 // source.moveDir('/testingDirs/makeTest/', '/moveTest/makeTest/')
 //     .then(data => {
@@ -292,8 +289,10 @@ source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/copytes
 
 
 
+
 //Migrate File
-//source.migrateFile('/testingdirs/s3Test', dest, '/destination/path/');
+ source.migrateFile('/cloudshepherdtesting/fileToWrite.txt', destination, '/destinationcloudtest/fileToWriteTest.txt');
+ source.migrateDir('/cloudshepherdtesting/testagain/', destination, '/destinationcloudtest/testagain/');
 
 //Migrate Directory
 //source.migrateDirectory('',)

@@ -14,14 +14,27 @@ without having to dig up documentation , build custom wrappers, or spend time th
 
 Currently supported clouds:
 
-*s3: in-progress*
+*s3: supported*
 
-| Raskspace: planned |
-| Azure: planned |
-| Openstack: planned |
+| Raskspace: in-progress |
+| Azure: in-progress |
+| Openstack: in-progress |
+| Google: in-progress |
+| HP: in-progress |
+
+| Box: planned |
 | Dropbox: planned |
 | Onedrive: planned |
 | gDrive: planned |
+
+
+Currently supported features:
+
+| cloud to cloud migration: supported |
+| timed file mirroring/syncing between cloud: planned |
+| timed local filesystem backups: planned |
+
+
 
 
 ## Installation
@@ -35,48 +48,52 @@ Currently supported clouds:
     
     const shepherd = require('cloud-shepherd');
     
-    const credentials = {
+    const srcCredentials = {
         secretAccessKey : 'yourSecret',
         accessKey : 'yourAccessKey'
     };
+    
+    const destCredentials = {
+            secretAccessKey : 'yourSecret',
+            accessKey : 'yourAccessKey'
+        };
 
-    const source = shepherd.cloudFactory.issue('s3', credentials);
+    const source = shepherd.herd('s3', srcCredentials);
+    const destination = shepherd.herd('s3', destCredentials);
 
-    // List items from root context
+    //Migrate files from one cloud herd to another with the migrate function.
+    source.migrateFile('/cloudshepherdtesting/fileToWrite.txt', destination, 
+                        '/destinationcloudtest/fileToWriteTest.txt');
+    
+    source.migrateDir('/cloudshepherdtesting/testagain/', destination,
+                        '/destinationcloudtest/testagain/');
+    
+    // List files or dirs from a given path context with the ls function.
     source.ls('/')
         .then( files => {
             console.log(files);
         })
-        .catch( err => {
-            console.log(err);
-        });
-    
-    // Fetch items from a root folder or container context
+      
     source.ls('/testingdirs/')
         .then( files => {
             console.log(files);
         })
-        .catch( err => {
-            console.log(err);
-        });
+       
     
-    //Fetch items from a sub directory
-    source.ls('/testingdirs/Directory/')
+    source.ls('/testingdirs/directory/')
         .then( files => {
              console.log(files);
         })
-        .catch( err => {
-            console.log(err);
-        });
+       
     
-    //The stat command is exactly like ls except that it returns
-    //Deatailed information on the dir/file targeted.
+    //Get detailed metadata of all targets in a 
+    //given path context with the stat function. 
     source.stat('/testingdirs/Directory/2l0kmekrp1dy.jpg')
         .then( file => {
             console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
         });
         
-    //Make a directory or container in root context
+    //Make a directory with the supplied path.
     source.mkdir('/showcasethisapiwhydontyou/')
         .then( data => {
             console.log(data);
@@ -85,7 +102,6 @@ Currently supported clouds:
             console.log(err);
         });
     
-    //Create a sub-directory tree from a supplied path context
     source.mkdir('/showcasethisapiwhydontyou/showcase/this/api/making/things/')
         .then(data =>{
             console.log(data);
@@ -94,8 +110,7 @@ Currently supported clouds:
             console.log(err);
         });
     
-    //Upload any file by simply supplying a Readable object and passing
-    //it as a parameter. Using streams and promises, this can be done async.
+    //Upload any file by passing a Readable object to the uploadFile function.
     const Readable = require('stream').Readable;
     const readStream = Readable({objectMode: true});
     
@@ -113,27 +128,34 @@ Currently supported clouds:
     readStream.push('dogs');
     readStream.push(null);
 
-    //Pass in a write stream, file contents will be piped to that write stream
+    //Download a file by passing a Writeable object to the downloadFile function. 
     source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
         .then(data => {
             console.log('Successfully placed file');
-        })
-        .catch(err => {
-            console.log(err);
         });
+       
         
-        
-    //Remove a file by passing a file path. File will be destroyed or will throw an error.
+     // Using unlink you can delete a file or dir. For safety reasons, it is 
+     // more explicit destroyFile and destroyDir functions have been added
+     // that will prevent you from deleting an un-intended item.
+     source.unlink('/containertodelete/dirtodelete/subsubdirtodelete/')
+         .then(item => {
+             console.log(item);
+         });
+         
     source.destroyFile('/testingdirs/fileToWrite3.txt')
-        .then((data) => {
-            console.log('Successfully destroyed file:' + data);
-        })
-        .catch((err) => {
-            console.log(err);
+        .then((file) => {
+            console.log('Successfully destroyed file:' + file);
         });
         
+    source.destroyDir('/testingdirs/')
+            .then((dir) => {
+                console.log('Successfully destroyed file:' + dir);
+            });
         
-    //Remove all items from a dir, but not dir itself.
+        
+    // EmptyDir and EmptyRootDir functions will allow you to delete a dir's contents
+    // without deleting the dir itself.
     source.emptyDir('/containertodelete/dirtodelete/')
         .then(data => {
             console.log(data);
@@ -141,7 +163,7 @@ Currently supported clouds:
         .catch((err) => {
             console.log(err);
         });
-    //Destroy items in root level directory(container in object storage) but not rootDir itself.
+
     source.emptyRootDir('/containertodelete/')
         .then(data => {
             console.log(data);
@@ -149,38 +171,9 @@ Currently supported clouds:
         .catch((err) => {
             console.log(err);
         });
-    
-    //Remove a directory and its items.
-    source.destroyDir('/containertodelete/dirtodelete/subsubdirtodelete/')
-        .then(data => {
-            console.log(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    
-    //Remove a root level directory(Container in object storage) and its items.
-    source.destroyRootDir('/containertodelete/')
-        .then(data => {
-            console.log(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    
-    
-    // DANGER: Unsafe delete function. Will delete items at whatever path you provide it. Primary use is for internal
-    // functions... one wrong typo and you could mistakenly delete your entire bucket. Use explicit delete functions
-    // save yourself the trouble.
-    source.unlink('/containertodelete/dirtodelete/subsubdirtodelete/')
-        .then(data => {
-            console.log(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
         
-    //Returns true if root dir exists, false if not
+    // Use rootDirExists, dirExists, or fileExists to check whether or not a given item exists
+    // at at your current herd context.
     source.rootDirExists('/containertodelete/')
         .then(doesFileExist => {
             console.log('Does root dir exist? : ', doesFileExist );
@@ -189,7 +182,6 @@ Currently supported clouds:
             console.log(err);
         });
     
-    //Returns true if dir exists, false if not
     source.dirExists('/containertodelete/dir/subdir/')
         .then(doesFileExist => {
             console.log('Does dir exist? : ', doesFileExist );
@@ -198,7 +190,6 @@ Currently supported clouds:
             console.log(err);
         });
     
-    //Returns true if file exists, false if not
     source.fileExists('/gigofbuffalos/buffalo.jpg')
         .then(doesFileExist => {
             console.log('Does file exist? : ', doesFileExist );
@@ -206,8 +197,8 @@ Currently supported clouds:
         .catch((err) => {
             console.log(err);
         });
-        
-    //Move file from source context to dest context
+     
+    //Copy a file or dir at a given path to a supplied path    
     source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
         .then(data => {
             console.log(data);
@@ -216,6 +207,35 @@ Currently supported clouds:
         .catch((err) => {
             console.log(err);
         });
+        
+    source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/')
+            .then(data => {
+                console.log(data);
+                console.log('Successfully copied file');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    
+    // MoveFile and moveDir are just like copy, except that they will delete your supplied src path
+    // after copying.
+    source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+            .then(data => {
+                console.log(data);
+                console.log('Successfully copied file');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            
+    source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/')
+            .then(data => {
+                console.log(data);
+                console.log('Successfully copied file');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
 ## Tests
 
