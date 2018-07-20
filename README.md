@@ -11,27 +11,25 @@ specific documentation, write complicated (and dangerous :scream:) cloud 2 cloud
 the esoteric semantics of blobs vs keys. 
 
 ### Supported  Clients
- `s3: supported`
+ ` s3: supported`
  
- ` Raskspace: in-progress `
+ ` raskspace: supported `
  
- ` Azure: in-progress `
+ ` azure: in-progress `
  
- ` Openstack: in-progress `
+ ` openstack: in-progress `
 
- ` Google: in-progress `
+ ` gDrive: in-progress `
  
- ` HP: in-progress `
+ ` hp: in-progress `
 
- ` FTP/SFTP: planned `
+ ` ftp: planned `
  
- ` Box: planned `
+ ` box: planned `
 
- ` Dropbox: planned `
+ ` dropbox: planned `
 
- ` Onedrive: planned `
-
- ` gDrive: planned `
+ ` onedrive: planned `
 
 
 ### Installing
@@ -42,7 +40,7 @@ Require the library.
 
     const shepherd = require('cloud-shepherd');
     
-Call '.herd' with the name of your respective client, as well as a JSON object containing your unique access credentials 
+Call '.herd' with the name of your respective cloud provider, as well as a JSON object containing your unique access credentials 
 to instantiate your client.
 
     const credentials = {
@@ -50,9 +48,9 @@ to instantiate your client.
         accessKey : 'yourAccessKey'
     };
     
-    const client = 's3;
+    const provider = 's3';
     
-    const source = shepherd.herd(client, credentials);
+    const source = shepherd.herd(provider, credentials);
 
 ### Methods
 
@@ -61,7 +59,7 @@ to instantiate your client.
 Migrate a file or a directory from one Cloud to another.
 ```
     const sourceCloud = shepherd.herd('s3', srcCredentials);
-    const destinationCloud = shepherd.herd('s3', destCredentials);
+    const destinationCloud = shepherd.herd('rackspace', destCredentials);
 
     sourceCloud.migrateFile('/sourcebucket/fileToMigrate.txt', destinationCloud, 
                         '/destbucket/fileToMigrate.txt');
@@ -151,12 +149,31 @@ A destroy file and destroy dir method have been implemented, to give you peice o
 ```
 
 ####download(readPath,writeStream)
-Read the data from a the given path, and write that data to a given Writable stream.
+Read the data from a given path, and write that data to a given Writable stream.
 ```
     cloud.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
         .then(data => {
             console.log('Successfully placed file');
         });
+```
+
+####upload(readPath,writeStream)
+Pass in a Readable object, the object's data will be piped to the supplied file path.
+```
+    const readStream = Readable({objectMode: true});
+    readStream._read = () => {};
+    readStream.push('cats');
+   
+    source.uploadFile( '/cloudshepherdtesting/fileToWrite.txt', readStream)
+        .then(data => {
+            console.log('Successfully placed file');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+   
+    readStream.push('dogs');
+    readStream.push(null);
 ```
 
 ####empty(path)

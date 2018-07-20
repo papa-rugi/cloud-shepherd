@@ -1,15 +1,13 @@
 
-
-
 const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = shepherd.herd('s3', credentials.sourceCredentials);
-const destination = shepherd.herd('s3', credentials.destinationCredentials);
+const source = shepherd.herd('rackspace', credentials.rackspace);
+// const destination = shepherd.herd('s3', credentials.destinationCredentials);
 
 
-/****TESTING***/
+/** **TESTING***/
 const path = require('path');
 const util = require('../lib/utils.js');
 const stream = require('stream');
@@ -17,15 +15,13 @@ const Readable = require('stream').Readable;
 
 
 // Fetch items from root directory
-// source.ls('/')
-//     .then( files => {
-//         files.forEach(function (files) {
-//             console.log(files.toJSON());
-//         });
-//     })
-//     .catch( err => {
-//         console.log(err);
-//     });
+source.ls('/')
+  .then(files => {
+      console.log(files);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 //
 // // //Fetch items from a root folder
 // source.ls('/testingdirs/')
@@ -38,7 +34,7 @@ const Readable = require('stream').Readable;
 //         console.log(err);
 //     });
 
-//Fetch items from a root folder and a sub directory
+// Fetch items from a root folder and a sub directory
 // source.ls('/testingdirs/Directory/')
 //     .then( files => {
 //          files.forEach(function (file) {
@@ -108,9 +104,6 @@ const Readable = require('stream').Readable;
 // readStream.push(null);
 
 
-
-
-
 // //Pass in a write stream, file contents will be piped to that write stream
 // source.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
 //     .then(data => {
@@ -121,9 +114,9 @@ const Readable = require('stream').Readable;
 //     });
 
 
-//****DANGER***
+//* ***DANGER***
 
-//Remove item with name from context
+// Remove item with name from context
 // source.destroyFile('/testingdirs/fileToWrite3.txt')
 //     .then((data) => {
 //         console.log('Successfully destroyed file:' + data);
@@ -205,9 +198,6 @@ const Readable = require('stream').Readable;
 //     });
 
 
-
-
-
 // //Move file from source context to dest context
 // source.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
 //     .then(data => {
@@ -241,8 +231,6 @@ const Readable = require('stream').Readable;
 //     });
 
 
-
-
 // Move file from source context to dest context
 // source.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/testagain2/')
 //     .then(data => {
@@ -253,8 +241,7 @@ const Readable = require('stream').Readable;
 //     });
 
 
-
-//Move file from source context to dest context
+// Move file from source context to dest context
 // source.moveDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/movetest/')
 //     .then(data => {
 //         console.log('Successfully moved file');
@@ -285,14 +272,9 @@ const Readable = require('stream').Readable;
 //
 
 
+// Migrate File
+// source.migrateFile('/cloudshepherdtesting/fileToWrite.txt', destination, '/destinationcloudtest/fileToWriteTest.txt');
+// source.migrateDir('/cloudshepherdtesting/testagain/', destination, '/destinationcloudtest/testagain/');
 
-
-
-
-
-//Migrate File
- source.migrateFile('/cloudshepherdtesting/fileToWrite.txt', destination, '/destinationcloudtest/fileToWriteTest.txt');
- source.migrateDir('/cloudshepherdtesting/testagain/', destination, '/destinationcloudtest/testagain/');
-
-//Migrate Directory
-//source.migrateDirectory('',)
+// Migrate Directory
+// source.migrateDirectory('',)

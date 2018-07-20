@@ -27,9 +27,7 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "fs": "0.0.1-security",
-    "pkgcloud": "^1.5.0",
-    "readable-stream": "^2.3.6"
+    "pkgcloud": "^1.5.0"
   },
   "directories": {
     "lib": "lib",
