@@ -61,22 +61,42 @@ Migrate a file or a directory from one Cloud to another.
     const sourceCloud = shepherd.herd('s3', srcCredentials);
     const destinationCloud = shepherd.herd('rackspace', destCredentials);
 
-    sourceCloud.migrateFile('/sourcebucket/fileToMigrate.txt', destinationCloud, 
-                        '/destbucket/fileToMigrate.txt');
+    sourceCloud.migrateFile('/sourcebucket/fileToMigrate.txt',
+                            destinationCloud, 
+                            '/destbucket/fileToMigrate.txt');
     
-    sourceCloud.migrateDir('/cloudshepherdtesting/mydir/', destinationCloud,
-                        '/destinationcloudtest/testagain/');
+    sourceCloud.migrateDir('/cloudshepherdtesting/mydir/',
+                            destinationCloud,
+                            '/destinationcloudtest/testagain/');
 ```
 
 #####ls(path) 
 
 List all files and directories in your Cloud from a given path context.
 ```
-    cloud.ls('/');
+    cloud.ls('/')
+        .then( data => {
+            console.log(data);
+        })
+        .catch( err => {
+            console.log(data);
+        });
     
-    cloud.ls('/sourcebucket/');
+    cloud.ls('/sourcebucket/')
+        .then( data => {
+            console.log(data);
+        })
+        .catch( err => {
+            console.log(data);
+        });
     
-    cloud.ls('/sourcebucket/dir/sub-dir/');                  
+    cloud.ls('/sourcebucket/dir/sub-dir/')
+        .then( data => {
+            console.log(data);
+        })
+        .catch( err => {
+            console.log(data);
+        });                  
 ```
 
 #####stat(path)
@@ -104,6 +124,7 @@ Create a directory at the given path.
         });
 ```
 ####upload(writePath,readStream)
+
 Upload a file to the given write path context, from a given Readable stream.
 ```
         const Readable = require('stream').Readable;
@@ -124,7 +145,17 @@ Upload a file to the given write path context, from a given Readable stream.
         
        
 ```
+####download(readPath,writeStream)
+
+Read the data from a given path, and write that data to a given Writable stream.
+```
+    cloud.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
+        .then(data => {
+            console.log('Successfully placed file');
+        });
+```
 ####unlink(path)
+
 Delete a file or dir from a given path context. 
 ```
     cloud.unlink('/container/dir/subdirtodelete/')
@@ -135,6 +166,7 @@ Delete a file or dir from a given path context.
 
 
 ####destroy(path)
+
 A destroy file and destroy dir method have been implemented, to give you peice of mind while removing items. These methods will throw an error if you accidentally delete a file instead of a dir and vice versa.
 ```
     cloud.destroyFile('/testingdirs/fileToWrite3.txt')
@@ -148,35 +180,8 @@ A destroy file and destroy dir method have been implemented, to give you peice o
         });
 ```
 
-####download(readPath,writeStream)
-Read the data from a given path, and write that data to a given Writable stream.
-```
-    cloud.downloadFile( '/testingdirs/fileToWrite.txt', process.stdout)
-        .then(data => {
-            console.log('Successfully placed file');
-        });
-```
-
-####upload(readPath,writeStream)
-Pass in a Readable object, the object's data will be piped to the supplied file path.
-```
-    const readStream = Readable({objectMode: true});
-    readStream._read = () => {};
-    readStream.push('cats');
-   
-    source.uploadFile( '/cloudshepherdtesting/fileToWrite.txt', readStream)
-        .then(data => {
-            console.log('Successfully placed file');
-        })
-        .catch(err => {
-            console.log(err);
-        });
-   
-    readStream.push('dogs');
-    readStream.push(null);
-```
-
 ####empty(path)
+
 Will delete all items from a supplied directory context, but will not delete the directory.
 ```
     cloud.emptyDir('/container/dir/')
@@ -197,7 +202,8 @@ Will delete all items from a supplied directory context, but will not delete the
 ```
 
 ####itemExists(path)
-Resolves to true or false ig a given item exists.
+
+Resolves to true or false if a given item exists.
 ```
     cloud.fileExists('/gigofbuffalos/buffalo.jpg')
         .then(doesFileExist => {
@@ -222,9 +228,11 @@ Resolves to true or false ig a given item exists.
         });
 ```
 ####copy(srcPath,dstPath)
+
 Copys a file or directory from a given path, to a given path. *Will overwrite by default*
 ```
-    cloud.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+    cloud.copyFile('/cloudshepherdtesting/fileToWrite.txt', 
+                    '/cloudshepherdtesting/copytest/fileToCopy.txt')
         .then(data => {
             console.log(data);
             console.log('Successfully copied file');
@@ -233,7 +241,8 @@ Copys a file or directory from a given path, to a given path. *Will overwrite by
             console.log(err);
         });
         
-    cloud.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/')
+    cloud.copyDir('/cloudshepherdtesting/copytest/', 
+                    '/cloudshepherdtesting/')
         .then(data => {
             console.log(data);
             console.log('Successfully copied file');
@@ -244,9 +253,11 @@ Copys a file or directory from a given path, to a given path. *Will overwrite by
         
 ```
 ####move(srcPath,dstPath)
+
 Moves a file or directory from a given path, to a given path and then deletes the source path. *Will overwrite by default*
 ```
-    cloud.copyFile('/cloudshepherdtesting/fileToWrite.txt', '/cloudshepherdtesting/copytest/fileToCopy.txt')
+    cloud.moveFile('/cloudshepherdtesting/fileToWrite.txt', 
+                    '/cloudshepherdtesting/copytest/fileToCopy.txt')
         .then(data => {
             console.log(data);
             console.log('Successfully copied file');
@@ -255,7 +266,8 @@ Moves a file or directory from a given path, to a given path and then deletes th
             console.log(err);
         });
         
-    ccloud.copyDir('/cloudshepherdtesting/copytest/', '/cloudshepherdtesting/')
+    ccloud.moveDir('/cloudshepherdtesting/copytest/', 
+                    '/cloudshepherdtesting/')
         .then(data => {
             console.log(data);
             console.log('Successfully copied file');
