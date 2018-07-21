@@ -10,7 +10,7 @@ Amaze your friends and family as you enter the *multi-cloud* future and leave be
 specific documentation, write complicated (and dangerous :scream:) cloud 2 cloud migration scripts, or spend time thinking about 
 the esoteric semantics of blobs vs keys. 
 
-### Supported  Clients
+### Supported  Services
  ` s3: supported`
  
  ` raskspace: supported `
@@ -48,9 +48,9 @@ to instantiate your client.
         accessKey : 'yourAccessKey'
     };
     
-    const provider = 's3';
+    const service = 's3';
     
-    const source = shepherd.herd(provider, credentials);
+    const source = shepherd.herd(service, credentials);
 
 ### Methods
 
@@ -277,6 +277,25 @@ Moves a file or directory from a given path, to a given path and then deletes th
         });
         
 ``` 
+### Credential Format
+```
+  amazon: {
+    secretAccessKey: 'myKey',
+    accessKey: 'myAccessKey',
+  }
+
+  rackspace: {
+    username: 'myUsername',
+    apiKey: 'myApiKey',
+    service: 'storage',
+    region: 'myRegion',
+  }
+
+  azure: {
+    storageAccount: 'myAccount',
+    storageAccessKey: 'myStorageAccessKey'
+  }
+```
 
 ## Tests
 
