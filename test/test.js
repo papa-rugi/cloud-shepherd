@@ -3,7 +3,7 @@ const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = shepherd.herd('rackspace', credentials.rackspace);
+const source = shepherd.herd('azure', credentials.azure);
 // const destination = shepherd.herd('s3', credentials.destinationCredentials);
 
 
@@ -17,7 +17,7 @@ const Readable = require('stream').Readable;
 // Fetch items from root directory
 source.ls('/')
   .then(files => {
-      console.log(files);
+    console.log(files);
   })
   .catch(err => {
     console.log(err);

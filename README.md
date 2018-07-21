@@ -15,7 +15,7 @@ the esoteric semantics of blobs vs keys.
  
  ` raskspace: supported `
  
- ` azure: in-progress `
+ ` azure: supported `
  
  ` openstack: in-progress `
 
