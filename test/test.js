@@ -3,7 +3,7 @@ const shepherd = require('../lib/main.js');
 
 const credentials = require('./credentials.js');
 
-const source = shepherd.herd('azure', credentials.azure);
+const source = shepherd.herd('s3', credentials.amazon);
 // const destination = shepherd.herd('s3', credentials.destinationCredentials);
 
 
@@ -13,8 +13,12 @@ const util = require('../lib/utils.js');
 const stream = require('stream');
 const Readable = require('stream').Readable;
 
+source.mkdir('/test-test-test-test-toast/')
+    .catch(err=>{
+        console.log(err);
+    });
 
-// Fetch items from root directory
+//Fetch items from root directory
 source.ls('/')
   .then(files => {
     console.log(files);
@@ -22,7 +26,7 @@ source.ls('/')
   .catch(err => {
     console.log(err);
   });
-//
+
 // // //Fetch items from a root folder
 // source.ls('/testingdirs/')
 //     .then( files => {

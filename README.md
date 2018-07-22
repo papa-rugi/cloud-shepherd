@@ -295,6 +295,13 @@ Moves a file or directory from a given path, to a given path and then deletes th
     storageAccount: 'myAccount',
     storageAccessKey: 'myStorageAccessKey'
   }
+  
+  hp: {
+    username: 'myUsername',
+    apiKey: 'myApiKey',
+    region: 'myRegion',
+    authUrl: 'myAuthUrl',
+  },
 ```
 
 ## Tests
