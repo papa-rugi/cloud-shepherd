@@ -17,11 +17,11 @@ the esoteric semantics of blobs vs keys.
  
  ` azure: supported `
  
- ` openstack: in-progress `
+ ` hp: supported `
+ 
+ ` openstack: supported `
 
  ` gDrive: in-progress `
- 
- ` hp: in-progress `
 
  ` ftp: planned `
  
@@ -300,6 +300,13 @@ Moves a file or directory from a given path, to a given path and then deletes th
     username: 'myUsername',
     apiKey: 'myApiKey',
     region: 'myRegion',
+    authUrl: 'myAuthUrl',
+  },
+  
+  openstack: {
+    provider: 'openstack',
+    username: 'myUsername',
+    password: 'myPassword',
     authUrl: 'myAuthUrl',
   },
 ```
