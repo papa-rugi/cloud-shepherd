@@ -2,14 +2,15 @@ const Herd = require('./Herd.js');
 const Utils = require('./utils');
 const Readable = require('stream').Readable;
 const Transform = require('stream').Transform;
-
+const Fetch = require('node-fetch');
+const Dropbox = require('dropbox').Dropbox;
 
 //Essentially an abstract class
-class PkgCloudHerd extends Herd {
+class DropboxHerd extends Herd {
 
     constructor( credentials ) {
         super( credentials );
-        this.cloud = null;
+        this.dropbox = new Dropbox({ accessToken: credentials.accessToken, fetch: fetch });
     }
 
     //List items from dir context
@@ -25,7 +26,7 @@ class PkgCloudHerd extends Herd {
                     if (err) {
                         reject(err);
                     }
-                    console.log(containers);
+
                     let contents = containers.map( container => {
                         return container.name;
                     });
