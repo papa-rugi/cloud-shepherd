@@ -123,7 +123,7 @@ Create a directory at the given path.
             console.log(err);
         });
 ```
-####upload(writePath,readStream)
+####uploadFile(writePath,readStream)
 
 Upload a file to the given write path context, from a given Readable stream.
 ```
@@ -145,7 +145,7 @@ Upload a file to the given write path context, from a given Readable stream.
         
        
 ```
-####download(readPath,writeStream)
+####downloadFile(readPath,writeStream)
 
 Read the data from a given path, and write that data to a given Writable stream.
 ```
@@ -180,7 +180,7 @@ A destroy file and destroy dir method have been implemented, to give you peice o
         });
 ```
 
-####empty(path)
+#### NOT YET IMPLEMENTED:: empty(path)
 
 Will delete all items from a supplied directory context, but will not delete the directory.
 ```

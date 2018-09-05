@@ -13,47 +13,44 @@ const util = require('../lib/utils.js');
 const stream = require('stream');
 const Readable = require('stream').Readable;
 
-source.mkdir('/test-test-test-test-toast/')
-    .catch(err=>{
-        console.log(err);
-    });
 
-//Fetch items from root directory
-source.ls('/')
-  .then(files => {
-    console.log(files);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// Fetch items from root directory
+// source.ls('/')
+//   .then(files => {
+//     console.log(files);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+//
+// source.mkdir('/test-test-test-test-toast-new/')
+//   .catch(err => {
+//     console.log(err);
+//   });
 
-// // //Fetch items from a root folder
-// source.ls('/testingdirs/')
-//     .then( files => {
-//         files.forEach(function (file) {
-//             console.log(file.toJSON().name);
-//         });
-//     })
-//     .catch( err => {
-//         console.log(err);
+
+// // //Fetch items from a root folder with 1000+ items
+// source.ls('/gigofbuffalos/')
+//   .then(files => {
+//     files.forEach(function(file) {
+//       console.log(count++);
+//       console.log(file);
 //     });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 // Fetch items from a root folder and a sub directory
-// source.ls('/testingdirs/Directory/')
-//     .then( files => {
-//          files.forEach(function (file) {
-//              console.log(file.toJSON().name);
-//          });
-//     })
-//     .catch( err => {
-//         console.log(err);
+// source.ls('/cloudshepherdtesting/')
+//   .then(files => {
+//     files.forEach(function(file) {
+//       console.log(file);
 //     });
-//
-//
-// source.readFile('/testingdirs/Directory/2l0kmekrp1dy.jpg')
-//     .then( file => {
-//         console.log('File name: ' + file.name + '\n' + 'Last modified: ' + file.lastModified);
-//     });
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 
 // source.mkdir('/')
