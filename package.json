@@ -1,6 +1,6 @@
 {
   "name": "cloud-shepherd",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An NPM module that abstracts away the complexities of cloud storage services (Object Storage (AWS s3) as well as File Storage(Dropbox) to easily interface between multiple clouds with a unified interface. Also enables you to quickly perform data migrations between storage providers.",
   "main": "./lib/main.js",
   "scripts": {
